@@ -1,0 +1,11 @@
+
+-main me.nerik.terrainhx.Terrain
+
+-cp src
+
+-lib mcli
+-lib msignal
+-lib colladawriterhx
+
+-neko bin/terrainhx.n
+#-cmd neko bin/terrainhx.n test
