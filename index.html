@@ -1,0 +1,127 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Terrainhx by nerik</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Terrainhx</h1>
+        <p>Terrainhx is a small command line tool (Mac and Win) that makes a 3D model from a place on earth, using an elevation service such as Google Maps.</p>
+
+        <p class="view"><a href="https://github.com/nerik/terrainhx">View the Project on GitHub <small>nerik/terrainhx</small></a></p>
+
+
+        <ul>
+          <li><a href="https://github.com/nerik/terrainhx/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/nerik/terrainhx/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/nerik/terrainhx">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h1>
+<a name="terrainhx" class="anchor" href="#terrainhx"><span class="octicon octicon-link"></span></a>terrainhx</h1>
+
+<p>Terrainhx is a small command line tool (Mac and Win) that makes a 3D model from a place on earth, using an elevation service such as Google Maps.</p>
+
+<p><a href="http://nerik.me/project/terrainhx">WebGL demo</a></p>
+
+<p><a href="http://nerik.me/project/terrainhx"><img src="demo.png?raw=true" alt="Image"></a></p>
+
+<p>Terrainhx queries the webservice (currently only Google Maps elevation service) to get an elevation value for each of the points needed. It then builds a Collada model (.dae) that is usable in most of the 3D packages, as well as in Unity3D or with three.js for example.</p>
+
+<pre><code>bin/terrainhx &lt;path/to/folder&gt; #this will create the folder
+
+#You will then be asked the following parameters interactively in this order :
+# Latitude resolution (= number of captures on the y axis, int)
+# Longitude resolution (= number of captures on the x axis, int) 
+# Start latitude - southernmost (SW) point (float)
+# Start longitude - westernmost (SW) point (float)
+# End latitude - northermost (NE) point (float)
+# End longitude - easternmost (NE) point (float)
+
+#OR
+bin/terrainhx &lt;path/to/folder&gt; &lt;latRes&gt; &lt;lonRes&gt; &lt;swLat&gt; &lt;swLon&gt; &lt;neLat&gt; &lt;neLon&gt; 
+</code></pre>
+
+<h2>
+<a name="multiple-captures" class="anchor" href="#multiple-captures"><span class="octicon octicon-link"></span></a>Multiple captures</h2>
+
+<p>Google Maps' elevation service as a daily queries limit. If you need more points than possible in one capture, you can resume a previously started capture :</p>
+
+<pre><code>bin/terrainhx &lt;path/to/folder&gt;
+</code></pre>
+
+<h2>
+<a name="adding-markers" class="anchor" href="#adding-markers"><span class="octicon octicon-link"></span></a>Adding markers</h2>
+
+<p>It's possible to add markers, the tool will create nodes/pivot points in the 3D model's hierarchy itself :</p>
+
+<pre><code># --markers &lt;name0&gt;,&lt;lat0&gt;,&lt;lon0&gt;,...&lt;nameN&gt;,&lt;latN&gt;,&lt;lonN&gt;
+bin/terrainhx &lt;path/to/folder&gt; --markers AltodeGarajonay,28.106692,-17.249,ValleGranRey,28.092136,-17.338584
+</code></pre>
+
+<p>Then get the pivot points like this (with three.js)</p>
+
+<pre><code>var markerPivots = colladaMesh.getChildByName("markers").children;
+for (var i= 0; i &lt; 0...markerPivots.length; i++) 
+{
+    var markerPivot = markerPivots[i];
+    //...
+}
+</code></pre>
+
+<h2>
+<a name="build-from-source" class="anchor" href="#build-from-source"><span class="octicon octicon-link"></span></a>Build from source</h2>
+
+<p>Terrainhx is built in Haxe and compiled to Neko.
+You will need mcli and msignal from haxelib, and colladawriterhx (not on haxelib, grab it directly from github : <a href="https://github.com/nerik/colladawriterhx">colladawriterhx</a> )</p>
+
+<h2>
+<a name="license" class="anchor" href="#license"><span class="octicon octicon-link"></span></a>License</h2>
+
+<p>BSD 3-Clause License</p>
+
+<p>All rights reserved.
+Redistribution and use in source and binary forms, with or without modification,
+are permitted provided that the following conditions are met:</p>
+
+<ul>
+<li>Redistributions of source code must retain the above copyright notice,
+this list of conditions and the following disclaimer.</li>
+<li>Redistributions in binary form must reproduce the above copyright notice,
+this list of conditions and the following disclaimer in the documentation
+and/or other materials provided with the distribution.</li>
+<li>Neither the name of Terrainhx nor the names of its contributors may be
+used to endorse or promote products derived from this software without specific
+prior written permission.</li>
+</ul><p>THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+"AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</p>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/nerik">nerik</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+    
+  </body>
+</html>
