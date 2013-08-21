@@ -6,7 +6,7 @@ THREE.ColladaLoader = function () {
 
 	var COLLADA = null;
 	var scene = null;
-	var daeScene;
+	var daeScene; 
 
 	var readyCallbackFunc = null;
 
